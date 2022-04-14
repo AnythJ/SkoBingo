@@ -1,4 +1,5 @@
 ﻿body {
+    background-color: var(--bg-primary);
 }
 
 .button-section {
@@ -11,19 +12,17 @@
     justify-content: center;
 }
 
-.btn {
-    width: 12rem;
-    height: 3rem;
+.button {
+    width: 15rem;
+    height: auto;
     border: 0.2rem solid var(--bg-secondary);
     border-radius: 0.2rem;
     text-align: center;
-    line-height: 3rem;
+    line-height: 2.5rem;
     text-decoration: none;
     color: var(--text-primary);
     font-size: 1.5rem;
-    transition: all 1s ease-in-out;
+    transition: all 0.1s ease-in-out;
 }
 
-.btn:hover {
-    
-}
+
