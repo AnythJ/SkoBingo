@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SkoBingo.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace SkoBingo.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            CreationViewModel viewModel = new CreationViewModel();
+            return View(viewModel);
         }
     }
 }
