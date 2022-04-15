@@ -42,8 +42,10 @@ main {
         display: none;
     }
 
+    
+
     .side-navbar {
-        display: none;
+        display: none !important;
     }
 
     .top-navbar {
@@ -80,7 +82,6 @@ main {
     }
 
 .side-navbar {
-    display: block;
     height: 100%;
     width: 0;
     position: fixed;
@@ -111,6 +112,7 @@ main {
 
     .side-navbar-item:hover, .side-navbar-item:active, .side-navbar-item:focus {
         color: var(--text-primary);
+        cursor: pointer;
     }
 
 .menu-closeButton {
