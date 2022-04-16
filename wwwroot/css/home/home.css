@@ -13,19 +13,29 @@
 }
 
 .button {
-    width: 20rem;
     border: 0.2rem solid var(--bg-secondary);
     border-radius: 0.2rem;
-    line-height: 4rem;
     text-align: center;
     text-decoration: none;
     color: var(--text-primary);
-    font-size: 1.5rem;
     transition: all 0.2s ease-in-out;
+    background-color: transparent;
 }
+
     .button:hover {
         color: var(--bg-primary);
         background-color: var(--bg-secondary);
     }
 
 
+.button-large {
+    width: 20rem;
+    line-height: 4rem;
+    font-size: 1.5rem;
+}
+
+.button-small {
+    width: 15rem;
+    line-height: 2.5rem;
+    font-size: 1rem;
+}

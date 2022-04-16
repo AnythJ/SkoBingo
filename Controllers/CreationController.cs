@@ -14,5 +14,19 @@ namespace SkoBingo.Controllers
             CreationViewModel viewModel = new CreationViewModel();
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult Create(string name, int size)
+        {
+            CreationViewModel viewModel = new CreationViewModel()
+            {
+                Name = name,
+                Size = size
+            };
+
+            return View();
+        }
+
+
     }
 }

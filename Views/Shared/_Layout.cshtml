@@ -1,4 +1,4 @@
-﻿
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <styles>
 
@@ -20,12 +20,8 @@
         <a class="menu-button" id="menuIcon" onclick="showNavbar()">
             <i class="fa-solid fa-bars"></i>
         </a>
-        <a class="top-navbar-item">
-            SkyBingo
-        </a>
-        <a class="top-navbar-item">
-            About
-        </a>
+        <a class="top-navbar-item" asp-controller="home" asp-action="index">SkyBingo</a>
+        <a class="top-navbar-item">About</a>
     </nav>
     <main>
         @RenderBody()
