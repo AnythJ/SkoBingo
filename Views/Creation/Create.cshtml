@@ -1,1 +1,38 @@
-﻿
+﻿@using SkoBingo.ViewModels
+@model CreationViewModel
+
+@{
+    ViewData["Title"] = "SkoBingo - Questions";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="~/css/creation/create.css" rel="stylesheet" />
+    <link href="~/css/creation/index.css" rel="stylesheet" />
+    <link href="~/css/home/home.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <div class="main-div">
+        <form asp-controller="Creation" asp-action="BingoCreate" method="post">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" required value="@Model.Name" readonly/>
+            <input asp-for="Size" hidden />
+
+            <label asp-for="Questions"></label>
+            <div class="questions-container">
+                @{
+                for(int i = 0; i < Model.Size*Model.Size; i++)
+                {
+                    <input asp-for="Questions[i].Text" required/>
+                }
+            }
+            </div>
+            
+            
+            <button class="button button-small">Create bingo</button>
+        </form>
+    </div>
+</body>
+</html>
+

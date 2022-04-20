@@ -9,6 +9,7 @@ namespace SkoBingo.ViewModels
     {
         public int Id { get; set; }
         public string UniqueLinkName { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Name { get; set; }

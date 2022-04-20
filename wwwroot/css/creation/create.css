@@ -1,0 +1,39 @@
+﻿.questions-container {
+    text-align: center;
+    height: 50vh;
+    width: 17rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 2rem;
+    border: 0.2rem solid var(--bg-secondary);
+    border-radius: 0.2rem;
+    padding: 1rem 0;
+}
+.questions-container::-webkit-scrollbar {
+    display: block;
+    width: 0.2rem;
+}
+
+    .questions-container::-webkit-scrollbar-track-piece {
+        background-color: transparent;
+    }
+.questions-container::-webkit-scrollbar-thumb {
+    background-color: var(--text-primary);
+}
+
+#Name {
+    text-align: center;
+}
+
+
+@media only screen and (min-width: 541px)
+{
+    .questions-container {
+        width: 60vw;
+    }
+
+    input[type=text] {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}

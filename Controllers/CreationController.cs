@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SkoBingo.Models;
 using SkoBingo.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,20 @@ namespace SkoBingo.Controllers
                 Size = size
             };
 
-            return View();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult BingoCreate(CreationViewModel viewModel)
+        {
+            foreach (Question item in viewModel.Questions)
+            {
+                item.Id = viewModel.Id;
+            }
+
+
+
+            return View(viewModel);
         }
 
 
