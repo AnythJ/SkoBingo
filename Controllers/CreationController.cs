@@ -10,16 +10,22 @@ namespace SkoBingo.Controllers
 {
     public class CreationController : Controller
     {
+        private readonly IBingoRepository _bingoRepository;
+
+        public CreationController(IBingoRepository _bingo)
+        {
+            this._bingoRepository = _bingo;
+        }
         public IActionResult Index()
         {
-            CreationViewModel viewModel = new CreationViewModel();
+            CreationViewModel viewModel = new();
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Create(string name, int size)
         {
-            CreationViewModel viewModel = new CreationViewModel()
+            CreationViewModel viewModel = new()
             {
                 Name = name,
                 Size = size
@@ -31,14 +37,15 @@ namespace SkoBingo.Controllers
         [HttpPost]
         public IActionResult BingoCreate(CreationViewModel viewModel)
         {
-            foreach (Question item in viewModel.Questions)
+            Bingo bingo = new()
             {
-                item.Id = viewModel.Id;
-            }
-
-
-
-            return View(viewModel);
+                Name = viewModel.Name,
+                Size = viewModel.Size,
+                Question = viewModel.Questions
+            };
+            bingo = _bingoRepository.Add(bingo);
+            
+            return RedirectToAction("Play", "Home", new { uniqueLink = bingo.UniqueLink });
         }
 
 
