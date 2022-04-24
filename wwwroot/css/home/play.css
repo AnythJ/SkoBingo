@@ -1,0 +1,22 @@
+﻿.main-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding-top: 2rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 2rem 0.5rem 2rem 0.5rem;
+    align-content: center;
+}
+
+.question-block {
+    border: 0.15rem solid var(--bg-secondary);
+    aspect-ratio: 1;
+    background-color: transparent;
+    color: white;
+}
+
+small {
+   text-align: center;
+}
+

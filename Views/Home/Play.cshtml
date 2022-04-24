@@ -1,9 +1,30 @@
 ﻿@model SkoBingo.Models.Bingo
 
+@{
+    ViewData["Title"] = "Play - " + Model.Name;
+}
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>@Model.Name</title>
+    <style>
+        @{
+            var flexSize = (90 / Model.Size + "%").ToString();
+        }
+        .question-block {
+            flex: @flexSize;
+        }
+    </style>
+    <link href="~/css/home/play.css" rel="stylesheet" />
+    <link href="~/css/home/home.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="main-div">
+        @foreach(var item in Model.Question)
+        {
+            <button asp-for="@item.Id" class="question-block">
+                <small>@item.Text</small>
+            </button>
+        }
+    </div>
 </body>
 </html>
