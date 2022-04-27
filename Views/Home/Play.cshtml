@@ -6,25 +6,57 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <style>
+    @section Styles {
+        <style type="text/css" media="only screen and (max-width: 800px and max-height: 720px)">
         @{
-            var flexSize = (90 / Model.Size + "%").ToString();
+            var flexSize = (95 / Model.Size + "vw").ToString();
+            var width = (Model.Size + "%").ToString();
         }
         .question-block {
-            flex: @flexSize;
+           width: @flexSize;
+           height: @flexSize;
         }
-    </style>
+        </style>
+        <style type="text/css" media="only screen and (min-width: 801px and max-height: 721px)">
+        @{
+            flexSize = (80 / Model.Size + "vh").ToString();
+            width = (Model.Size + "%").ToString();
+        }
+        .question-block {
+           width: @flexSize;
+           height: @flexSize;
+        }
+        </style>
+    }
     <link href="~/css/home/play.css" rel="stylesheet" />
     <link href="~/css/home/home.css" rel="stylesheet" />
 </head>
 <body>
     <div class="main-div">
-        @foreach(var item in Model.Question)
-        {
-            <button asp-for="@item.Id" class="question-block">
-                <small>@item.Text</small>
-            </button>
-        }
+        <div class="question-details">
+            <span class="details-header">
+               <a class="xmark-button" onclick=closeDetails()><i class="fa-solid fa-xmark"></i></a>
+
+            </span>
+            <i id="detailsText"></i>
+        <div class="buttons-row">
+            <button class="button" id="markButton" onclick="markOne()">Mark</button>
+            <button class="button" onclick=closeDetails()>Close</button>
+        </div>
+        </div>
+        <div class="question-div">
+            @{var itemBlockId = 0;}
+            @foreach (var item in Model.Question)
+            {
+                <button id="@itemBlockId" class="question-block" onclick="openDetails('@item.Text', this.id)">
+                    <small class="question-text">@item.Text</small>
+                </button>
+                itemBlockId++;
+            }
+        </div>
+       
     </div>
 </body>
 </html>
+
+<script src="~/js/home/play.js"></script>
