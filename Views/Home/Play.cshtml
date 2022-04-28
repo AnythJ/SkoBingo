@@ -1,13 +1,13 @@
 ﻿@model SkoBingo.Models.Bingo
 
 @{
-    ViewData["Title"] = "Play - " + Model.Name;
+    ViewData["Title"] = "SkoBingo Play - " + Model.Name;
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @section Styles {
-        <style type="text/css" media="only screen and (max-width: 800px and max-height: 720px)">
+        <style type="text/css" media="only screen and (max-width: 800px)">
         @{
             var flexSize = (95 / Model.Size + "vw").ToString();
             var width = (Model.Size + "%").ToString();
@@ -17,7 +17,7 @@
            height: @flexSize;
         }
         </style>
-        <style type="text/css" media="only screen and (min-width: 801px and max-height: 721px)">
+        <style type="text/css" media="only screen and (min-width: 801px)">
         @{
             flexSize = (80 / Model.Size + "vh").ToString();
             width = (Model.Size + "%").ToString();
@@ -45,7 +45,9 @@
         </div>
         </div>
         <div class="question-div">
-            @{var itemBlockId = 0;}
+            @{
+                int itemBlockId = 0;
+            }
             @foreach (var item in Model.Question)
             {
                 <button id="@itemBlockId" class="question-block" onclick="openDetails('@item.Text', this.id)">
@@ -58,5 +60,9 @@
     </div>
 </body>
 </html>
+
+<script>
+    localStorage.removeItem("selectedBlocks"); //For now, will ask user if want to continue last or new
+    </script>
 
 <script src="~/js/home/play.js"></script>
