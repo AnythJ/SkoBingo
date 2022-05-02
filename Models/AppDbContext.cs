@@ -14,8 +14,9 @@ namespace SkoBingo.Models
 
         }
         public DbSet<Bingo> Bingos { get; set; }
-        public DbSet<Question> Questions { get; set; }
-
+        public DbSet<Sentence> Sentences { get; set; }
+        public DbSet<Scoreboard> Scoreboards { get; set; }
+        public DbSet<Player> Players { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

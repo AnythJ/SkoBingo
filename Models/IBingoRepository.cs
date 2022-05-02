@@ -10,7 +10,11 @@ namespace SkoBingo.Models
         List<string> GetLinks();
         Bingo Add(Bingo bingo);
         Bingo GetBingo(string uniqueLink);
-        ICollection<Question> GetQuestions();
+        ICollection<Sentence> GetSentences();
         bool ContainsLink(string uniqueLink);
+
+        public Player AddPlayer(Player player);
+
+        ICollection<Player> GetPlayers(int scoreboardId);
     }
 }

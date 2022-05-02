@@ -15,6 +15,9 @@ namespace SkoBingo.Models
         public int Size { get; set; }
         public string UniqueLink { get; set; }
 
-        public ICollection<Question> Question { get; set; }
+        public ICollection<Sentence> Sentence { get; set; }
+
+
+        public Scoreboard Scoreboard { get; set; }
     }
 }

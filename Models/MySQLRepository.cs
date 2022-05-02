@@ -11,6 +11,7 @@ namespace SkoBingo.Models
     public class MySQLRepository : IBingoRepository
     {
         private readonly AppDbContext context;
+
         public MySQLRepository(AppDbContext _context)
         {
             this.context = _context;
@@ -26,6 +27,7 @@ namespace SkoBingo.Models
                 uniqueLink = LinkGenerator.GetUniqueLink(10);
             }
 
+            
             bingo.UniqueLink = uniqueLink;
             context.Add(bingo);
             context.SaveChanges();
@@ -41,7 +43,8 @@ namespace SkoBingo.Models
         public Bingo GetBingo(string uniqueLink)
         {
             Bingo bingo = context.Bingos.FirstOrDefault(e => e.UniqueLink == uniqueLink);
-            bingo.Question = context.Questions.Where(e => e.BingoId == bingo.BingoId).ToList();
+            bingo.Sentence = context.Sentences.Where(e => e.BingoId == bingo.BingoId).ToList();
+            bingo.Scoreboard = context.Scoreboards.FirstOrDefault(e => e.BingoId == bingo.BingoId);
 
             return bingo;
         }
@@ -54,9 +57,23 @@ namespace SkoBingo.Models
             return test;
         }
 
-        public ICollection<Question> GetQuestions()
+        public ICollection<Sentence> GetSentences()
         {
             throw new NotImplementedException();
+        }
+
+
+        public Player AddPlayer(Player player)
+        {
+            context.Players.Add(player);
+            context.SaveChanges();
+
+            return player;
+        }
+
+        public ICollection<Player> GetPlayers(int scoreboardId)
+        {
+            return context.Players.Where(e => e.ScoreboardId == scoreboardId).ToList();
         }
     }
 }

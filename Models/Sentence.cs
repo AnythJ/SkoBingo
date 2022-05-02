@@ -2,7 +2,7 @@
 
 namespace SkoBingo.Models
 {
-    public class Question
+    public class Sentence
     {
         public int Id { get; set; }
 

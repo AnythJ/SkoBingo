@@ -41,8 +41,10 @@ namespace SkoBingo.Controllers
             {
                 Name = viewModel.Name,
                 Size = viewModel.Size,
-                Question = viewModel.Questions
+                Sentence = viewModel.Sentences,
+                Scoreboard = new Scoreboard()
             };
+            
             bingo = _bingoRepository.Add(bingo);
             
             return RedirectToAction("Play", "Home", new { uniqueLink = bingo.UniqueLink });
