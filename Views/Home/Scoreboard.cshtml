@@ -1,0 +1,43 @@
+﻿@model IList<SkoBingo.Models.Player>
+
+@{
+    ViewData["Title"] = "SkoBingo Scoreboard";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="~/css/home/home.css" rel="stylesheet" />
+    <link href="~/css/home/scoreboard.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="table-container">
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>Place</th>
+                    <th>Name</th>
+                    <th>Finish date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    var place = i + 1;
+                    <tr>
+                        <td>@place</td>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].WinDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        
+
+    </div>
+</body>
+</html>
+
