@@ -2,7 +2,7 @@
 @model CreationViewModel
 
 @{
-    ViewData["Title"] = "SkoBingo - Questions";
+    ViewData["Title"] = "SkoBingo - Sentences";
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,12 +19,12 @@
             <input asp-for="Name" required value="@Model.Name" readonly/>
             <input asp-for="Size" hidden />
 
-            <label asp-for="Questions"></label>
-            <div class="questions-container">
+            <label asp-for="Sentences"></label>
+            <div class="sentences-container">
                 @{
                 for(int i = 0; i < Model.Size*Model.Size; i++)
                 {
-                    <input asp-for="Questions[i].Text" required/>
+                    <input asp-for="Sentences[i].Text" required/>
                 }
             }
             </div>

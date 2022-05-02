@@ -1,4 +1,4 @@
-﻿.questions-container {
+﻿.sentences-container {
     text-align: center;
     height: 50vh;
     width: 17rem;
@@ -9,15 +9,15 @@
     border-radius: 0.2rem;
     padding: 1rem 0;
 }
-.questions-container::-webkit-scrollbar {
+.sentences-container::-webkit-scrollbar {
     display: block;
     width: 0.2rem;
 }
 
-    .questions-container::-webkit-scrollbar-track-piece {
-        background-color: transparent;
-    }
-.questions-container::-webkit-scrollbar-thumb {
+.sentences-container::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+}
+.sentences-container::-webkit-scrollbar-thumb {
     background-color: var(--text-primary);
 }
 
@@ -28,7 +28,7 @@
 
 @media only screen and (min-width: 541px)
 {
-    .questions-container {
+    .sentences-container {
         width: 60vw;
     }
 

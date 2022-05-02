@@ -1,7 +1,7 @@
-﻿@model SkoBingo.Models.Bingo
+﻿@model SkoBingo.ViewModels.HomeViewModel
 
 @{
-    ViewData["Title"] = "SkoBingo Play - " + Model.Name;
+    ViewData["Title"] = "SkoBingo Play - " + Model.Bingo.Name;
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,20 +9,20 @@
     @section Styles {
         <style type="text/css" media="only screen and (max-width: 800px)">
         @{
-            var flexSize = (95 / Model.Size + "vw").ToString();
-            var width = (Model.Size + "%").ToString();
+            var flexSize = (95 / Model.Bingo.Size + "vw").ToString();
+            var width = (Model.Bingo.Size + "%").ToString();
         }
-        .question-block {
+        .sentence-block {
            width: @flexSize;
            height: @flexSize;
         }
         </style>
         <style type="text/css" media="only screen and (min-width: 801px)">
         @{
-            flexSize = (80 / Model.Size + "vh").ToString();
-            width = (Model.Size + "%").ToString();
+            flexSize = (80 / Model.Bingo.Size + "vh").ToString();
+            width = (Model.Bingo.Size + "%").ToString();
         }
-        .question-block {
+        .sentence-block {
            width: @flexSize;
            height: @flexSize;
         }
@@ -33,7 +33,21 @@
 </head>
 <body>
     <div class="main-div">
-        <div class="question-details">
+        <div id="winPrompt">
+            <span class="bingoWinText">Bingo!!!</span>
+            <form asp-action="Win" asp-controller="Home" method="post">
+                <input asp-for="Bingo.Scoreboard.ScoreboardId" hidden/>
+                <input asp-for="Bingo.UniqueLink" hidden/>
+                <label asp-for="Player.Name"></label>
+                <input asp-for="Player.Name" />
+                <div class="buttons-row">
+                    <button class="button" type="submit">Finish</button>
+                    <button class="button" type="button" onclick="refresh()">New</button>
+                    <button class="button" type="button" onclick="closeWinPrompt()">Close</button>
+                </div>
+            </form>
+        </div>
+        <div class="sentence-details">
             <span class="details-header">
                <a class="xmark-button" onclick=closeDetails()><i class="fa-solid fa-xmark"></i></a>
 
@@ -44,25 +58,30 @@
             <button class="button" onclick=closeDetails()>Close</button>
         </div>
         </div>
-        <div class="question-div">
+        <div class="sentence-div">
             @{
                 int itemBlockId = 0;
             }
-            @foreach (var item in Model.Question)
+            @foreach (var item in Model.Bingo.Sentence)
             {
-                <button id="@itemBlockId" class="question-block" onclick="openDetails('@item.Text', this.id)">
-                    <small class="question-text">@item.Text</small>
+                <button id="@itemBlockId" class="sentence-block" onclick="openDetails('@item.Text', this.id)">
+                    <small class="sentence-text">@item.Text</small>
                 </button>
                 itemBlockId++;
             }
         </div>
-       
+       <div class="buttons-row">
+           <a class="button button-small" asp-controller="home" asp-action="scoreboard">Scoreboard</a>
+       </div>
     </div>
 </body>
 </html>
 
 <script>
     localStorage.removeItem("selectedBlocks"); //For now, will ask user if want to continue last or new
+    localStorage.setItem("IgnoreScore", JSON.stringify(false));
+
+    
     </script>
 
 <script src="~/js/home/play.js"></script>

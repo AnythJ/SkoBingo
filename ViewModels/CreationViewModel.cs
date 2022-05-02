@@ -15,6 +15,6 @@ namespace SkoBingo.ViewModels
         public string Name { get; set; }
         [Required]
         public int Size { get; set; }
-        public List<Question> Questions { get; set; }
+        public List<Sentence> Sentences { get; set; }
     }
 }

@@ -1,19 +1,27 @@
 ﻿function closeDetails() {
-    document.getElementsByClassName("question-details")[0].style.display = "none";
+    document.getElementsByClassName("sentence-details")[0].style.display = "none";
+}
+
+function closeWinPrompt() {
+    document.getElementById("winPrompt").style.display = "none";
+    localStorage.setItem("IgnoreScore", JSON.stringify(true));
+}
+
+function refresh() {
+    window.location.reload();
 }
 
 function markOne(id) {
     var markBlock = document.getElementById(id);
-    var size = document.getElementsByClassName("question-block").length;
+    var size = document.getElementsByClassName("sentence-block").length;
     if (window.getComputedStyle(markBlock, null).getPropertyValue("background-color") == "rgb(26, 26, 29)") {
         markBlock.style.backgroundColor = "var(--bg-secondary)";
 
-
-        AddMarkedBlock(id, size);
+        if (!JSON.parse(localStorage.getItem("IgnoreScore"))) AddMarkedBlock(id, Math.sqrt(size));
     }
     else {
         markBlock.style.backgroundColor = "var(--bg-primary)";
-        DeleteMarkedBlock(id, size);
+        if (!JSON.parse(localStorage.getItem("IgnoreScore"))) DeleteMarkedBlock(id, Math.sqrt(size));
     }
 
     closeDetails();
@@ -21,7 +29,7 @@ function markOne(id) {
 
 function openDetails(text, id) {
     document.getElementById("detailsText").innerText = text;
-    document.getElementsByClassName("question-details")[0].style.display = "flex";
+    document.getElementsByClassName("sentence-details")[0].style.display = "flex";
     document.getElementById("markButton").onclick = function () { markOne(id); };
 }
 
@@ -32,7 +40,7 @@ function AddMarkedBlock(id, size) {
     selectedBlocks.push(id);
     localStorage.setItem("selectedBlocks", JSON.stringify(selectedBlocks));
 
-    CheckIfBingo(id, 6);
+    CheckIfBingo(id, size);
 }
 
 function DeleteMarkedBlock(id) {
@@ -53,12 +61,15 @@ function CheckIfBingo(id, size) {
         if (selectedBlocks.indexOf(String(i)) >= 0) verticalCount++;
     }
 
-    for (var i = size; i < size+size; i++) {
+    var k = id;
+    while (k % size != 0) k--;
+
+    for (var i = k; i < k + size; i++) {
         if (selectedBlocks.indexOf(String(i)) >= 0) horizontalCount++;
     }
 
     if (horizontalCount == size || verticalCount == size) {
-        alert("Bingo");
+        document.getElementById("winPrompt").style.display = "flex";
     }
 }
 
