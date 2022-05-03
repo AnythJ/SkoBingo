@@ -25,6 +25,8 @@ namespace SkoBingo.Controllers
         public IActionResult Play(string uniqueLink)
         {
             Bingo bingo = _bingoRepository.GetBingo(uniqueLink);
+            if (bingo == null) return StatusCode(500);
+
             HomeViewModel viewModel = new()
             {
                 Bingo = bingo,
@@ -32,6 +34,11 @@ namespace SkoBingo.Controllers
             };
 
             return View(viewModel);
+        }
+
+        public IActionResult Multiplayer()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -59,6 +66,8 @@ namespace SkoBingo.Controllers
             else
             {
                 Bingo bingo = _bingoRepository.GetBingo(uniqueLink);
+                if (bingo == null) return StatusCode(500);
+
                 IList<Player> players = _bingoRepository.GetPlayers(bingo.Scoreboard.ScoreboardId).ToList();
                 return View(players);
             }

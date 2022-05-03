@@ -43,7 +43,10 @@ namespace SkoBingo.Models
         public Bingo GetBingo(string uniqueLink)
         {
             Bingo bingo = context.Bingos.FirstOrDefault(e => e.UniqueLink == uniqueLink);
+            if (bingo == null) return null;
+
             bingo.Sentence = context.Sentences.Where(e => e.BingoId == bingo.BingoId).ToList();
+
             bingo.Scoreboard = context.Scoreboards.FirstOrDefault(e => e.BingoId == bingo.BingoId);
 
             return bingo;
