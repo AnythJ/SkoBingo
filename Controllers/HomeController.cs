@@ -27,6 +27,8 @@ namespace SkoBingo.Controllers
             Bingo bingo = _bingoRepository.GetBingo(uniqueLink);
             if (bingo == null) return StatusCode(500);
 
+            Helper.BasicShuffle(bingo);
+
             HomeViewModel viewModel = new()
             {
                 Bingo = bingo,
