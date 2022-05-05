@@ -1,5 +1,8 @@
-﻿@{
+﻿@model SkoBingo.Models.Bingo
+
+@{
     ViewData["Title"] = "SkoBingo - Multiplayer";
+    string multiPlayerLink = "";
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,10 +13,13 @@
 </head>
 <body>
     <div class="main-div">
-        <form asp-controller="Creation" asp-action="Create" method="post">
-            
-            <button class="button button-small">Add sentences</button>
+        <form asp-controller="home" asp-action="multiplayer" method="post">
+            <input asp-for="UniqueLink" onkeyup="this.onchange()" />
+            <button type="submit" class="button button-small">Play</button>
         </form>
     </div>
 </body>
 </html>
+
+
+<script src="~/js/home/multiplayer.js"></script>
