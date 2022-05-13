@@ -7,26 +7,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     @section Styles {
-        <style type="text/css" media="only screen and (max-width: 800px)">
+        <style type="text/css">
         @{
-            var flexSize = (95 / Model.Bingo.Size + "vw").ToString();
-            var width = (Model.Bingo.Size + "%").ToString();
+            var flexSize = (98 / Model.Bingo.Size + "%").ToString();
         }
         .sentence-block {
            width: @flexSize;
            height: @flexSize;
         }
         </style>
-        <style type="text/css" media="only screen and (min-width: 801px)">
-        @{
-            flexSize = (80 / Model.Bingo.Size + "vh").ToString();
-            width = (Model.Bingo.Size + "%").ToString();
-        }
-        .sentence-block {
-           width: @flexSize;
-           height: @flexSize;
-        }
-        </style>
+       
     }
     <link href="~/css/home/play.css" rel="stylesheet" />
     <link href="~/css/home/home.css" rel="stylesheet" />
@@ -58,7 +48,8 @@
             <button class="button" onclick=closeDetails()>Close</button>
         </div>
         </div>
-        <div class="sentence-div">
+        <div class="sentence-overlay-div">
+            <div class="sentence-div">
             @{
                 int itemBlockId = 0;
             }
@@ -70,6 +61,8 @@
                 itemBlockId++;
             }
         </div>
+        </div>
+        
        <div class="buttons-row">
            <a class="button button-small" asp-controller="home" asp-action="scoreboard">Scoreboard</a>
        </div>
