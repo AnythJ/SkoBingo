@@ -2,6 +2,67 @@
     document.getElementsByClassName("sentence-details")[0].style.display = "none";
 }
 
+window.onload = function () {
+    if (localStorage.getItem("selectedBlocks") == null && localStorage.getItem("swapedBlocks") == null) {
+        swapBlocks();
+    }
+    else if (localStorage.getItem("swapedBlocks") != null) {
+
+        var blocks = document.getElementsByClassName("sentence-block");
+        var blocksTexts = document.getElementsByClassName("sentence-text");
+        var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
+        var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
+        for (let i = 0; i < swapedBlocks.length; i++) {
+            blocks[i].onclick = function () { openDetails(String(swapedBlocks[i]), blocks[i].id); };
+            blocksTexts[i].innerHTML = swapedBlocks[i];
+        }
+
+        if (localStorage.getItem("selectedBlocks") != null) {
+            for (let i = 0; i < blocks.length; i++) {
+                if (selectedBlocks.indexOf(String(i)) >= 0) {
+                    var markBlock = document.getElementById(selectedBlocks[selectedBlocks.indexOf(String(i))]);
+                    markBlock.style.backgroundColor = "var(--bg-secondary)";
+                }
+            }
+        }
+    }
+
+    
+};
+
+
+
+function swapBlocks() {
+    var blocks = document.getElementsByClassName("sentence-block");
+    var blocksTexts = document.getElementsByClassName("sentence-text");
+
+
+    let n = blocks.length;
+
+
+    var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
+
+    while (n > 0) {
+        let r = Math.floor(Math.random() * (blocks.length));
+        n--;
+        let textTemp = blocksTexts[r].textContent;
+        blocksTexts[r].innerHTML = blocksTexts[n].textContent;
+        let firstId = blocks[r].id;
+        let secondId = blocks[n].id;
+        blocks[r].onclick = function () { openDetails(blocksTexts[n].textContent, firstId); };
+        blocksTexts[r].innerHTML = blocksTexts[n].textContent;
+        blocksTexts[n].innerHTML = textTemp;
+        blocks[n].onclick = function () { openDetails(textTemp, secondId); };
+    }
+
+    var blocksAfterSwap = document.getElementsByClassName("sentence-text");
+    for (let i = 0; i < blocks.length; i++) {
+        swapedBlocks.push(blocksAfterSwap[i].textContent);
+    }
+
+    localStorage.setItem("swapedBlocks", JSON.stringify(swapedBlocks));
+}
+
 function closeWinPrompt() {
     document.getElementById("winPrompt").style.display = "none";
     localStorage.setItem("IgnoreScore", JSON.stringify(true));
@@ -56,8 +117,8 @@ function CheckIfBingo(id, size) {
     let verticalCount = 0;
     let horizontalCount = 0;
     var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
-    
-    for (var i = startingIndex; i < size*size; i+=size) {
+
+    for (var i = startingIndex; i < size * size; i += size) {
         if (selectedBlocks.indexOf(String(i)) >= 0) verticalCount++;
     }
 

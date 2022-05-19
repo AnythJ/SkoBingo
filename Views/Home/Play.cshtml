@@ -16,7 +16,7 @@
            height: @flexSize;
         }
         </style>
-       
+
     }
     <link href="~/css/home/play.css" rel="stylesheet" />
     <link href="~/css/home/home.css" rel="stylesheet" />
@@ -26,8 +26,8 @@
         <div id="winPrompt">
             <span class="bingoWinText">Bingo!!!</span>
             <form asp-action="Win" asp-controller="Home" method="post">
-                <input asp-for="Bingo.Scoreboard.ScoreboardId" hidden/>
-                <input asp-for="Bingo.UniqueLink" hidden/>
+                <input asp-for="Bingo.Scoreboard.ScoreboardId" hidden />
+                <input asp-for="Bingo.UniqueLink" hidden />
                 <label asp-for="Player.Name"></label>
                 <input asp-for="Player.Name" />
                 <div class="buttons-row">
@@ -39,42 +39,44 @@
         </div>
         <div class="sentence-details">
             <span class="details-header">
-               <a class="xmark-button" onclick=closeDetails()><i class="fa-solid fa-xmark"></i></a>
+                <a class="xmark-button" onclick=closeDetails()><i class="fa-solid fa-xmark"></i></a>
 
             </span>
             <i id="detailsText"></i>
-        <div class="buttons-row">
-            <button class="button" id="markButton" onclick="markOne()">Mark</button>
-            <button class="button" onclick=closeDetails()>Close</button>
-        </div>
+            <div class="buttons-row">
+                <button class="button" id="markButton" onclick="markOne()">Mark</button>
+                <button class="button" onclick=closeDetails()>Close</button>
+            </div>
         </div>
         <div class="sentence-overlay-div">
             <div class="sentence-div">
-            @{
-                int itemBlockId = 0;
-            }
-            @foreach (var item in Model.Bingo.Sentence)
-            {
-                <button id="@itemBlockId" class="sentence-block" onclick="openDetails('@item.Text', this.id)">
-                    <small class="sentence-text">@item.Text</small>
-                </button>
-                itemBlockId++;
-            }
+                @{
+                    int itemBlockId = 0;
+                }
+                @foreach (var item in Model.Bingo.Sentence)
+                {
+                    <button id="@itemBlockId" class="sentence-block">
+                        <small class="sentence-text">@item.Text</small>
+                    </button>
+                    itemBlockId++;
+                }
+            </div>
         </div>
+
+        <div class="buttons-row">
+            <a class="button button-small" asp-controller="home" asp-action="scoreboard">Scoreboard</a>
         </div>
-        
-       <div class="buttons-row">
-           <a class="button button-small" asp-controller="home" asp-action="scoreboard">Scoreboard</a>
-       </div>
     </div>
 </body>
 </html>
 
-<script>
-    localStorage.removeItem("selectedBlocks"); //For now, will ask user if want to continue last or new
-    localStorage.setItem("IgnoreScore", JSON.stringify(false));
 
-    
-    </script>
+
+<script>
+    //localStorage.removeItem("selectedBlocks"); //For now, will ask user if want to continue last or new
+    //localStorage.setItem("IgnoreScore", JSON.stringify(false));
+
+</script>
+
 
 <script src="~/js/home/play.js"></script>
