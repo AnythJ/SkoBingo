@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "SkoBingo - Multiplayer";
-    string multiPlayerLink = "";
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,8 +13,8 @@
 <body>
     <div class="main-div">
         <form asp-controller="home" asp-action="multiplayer" method="post">
-            <input asp-for="UniqueLink" onkeyup="this.onchange()" />
-            <button type="submit" class="button button-small">Play</button>
+            <input asp-for="UniqueLink" required onkeyup="this.onchange()" />
+            <button type="submit" onclick="clearSelectedButtons()" class="button button-small">Play</button>
         </form>
     </div>
 </body>

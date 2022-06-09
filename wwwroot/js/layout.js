@@ -7,3 +7,8 @@ function hideNavbar() {
     document.getElementById("sideNavbar").style.width = "0";
     document.getElementById("closeIcon").style.transform = "rotate(-90deg)";
 }
+
+function clearSelectedButtons() {
+    localStorage.removeItem("selectedBlocks");
+    localStorage.removeItem("swapedBlocks");
+}

@@ -3,6 +3,8 @@
 }
 
 window.onload = function () {
+    console.log(localStorage.getItem("selectedBlocks"));
+
     if (localStorage.getItem("selectedBlocks") == null && localStorage.getItem("swapedBlocks") == null) {
         swapBlocks();
     }
@@ -32,32 +34,47 @@ window.onload = function () {
 
 
 
+function newBingo() {
+    localStorage.removeItem("swapedBlocks");
+    localStorage.removeItem("selectedBlocks");
+    closeWinPrompt();
+    location.reload();
+}
+
+function userFinish() {
+    localStorage.setItem("UserFinished", JSON.stringify(true));
+}
+
+
 function swapBlocks() {
     var blocks = document.getElementsByClassName("sentence-block");
     var blocksTexts = document.getElementsByClassName("sentence-text");
-
+    localStorage.setItem("UserFinished", JSON.stringify(false));
 
     let n = blocks.length;
 
 
     var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
-
+    console.log(blocks.length + " " + blocksTexts.length + " length");
+    
+    
     while (n > 0) {
         let r = Math.floor(Math.random() * (blocks.length));
         n--;
-        let textTemp = blocksTexts[r].textContent;
-        blocksTexts[r].innerHTML = blocksTexts[n].textContent;
-        let firstId = blocks[r].id;
-        let secondId = blocks[n].id;
-        blocks[r].onclick = function () { openDetails(blocksTexts[n].textContent, firstId); };
-        blocksTexts[r].innerHTML = blocksTexts[n].textContent;
-        blocksTexts[n].innerHTML = textTemp;
-        blocks[n].onclick = function () { openDetails(textTemp, secondId); };
+        let tempText = blocksTexts[r].innerText;
+
+        blocksTexts[r].innerText = blocksTexts[n].innerText;
+        blocksTexts[n].innerText = tempText;
     }
 
     var blocksAfterSwap = document.getElementsByClassName("sentence-text");
     for (let i = 0; i < blocks.length; i++) {
         swapedBlocks.push(blocksAfterSwap[i].textContent);
+    }
+
+    for (let i = 0; i < swapedBlocks.length; i++) {
+        blocks[i].onclick = function () { openDetails(String(swapedBlocks[i]), blocks[i].id); };
+        blocksTexts[i].innerHTML = swapedBlocks[i];
     }
 
     localStorage.setItem("swapedBlocks", JSON.stringify(swapedBlocks));
@@ -89,6 +106,7 @@ function markOne(id) {
 }
 
 function openDetails(text, id) {
+    console.log("openDetails " + text + " " + id);
     document.getElementById("detailsText").innerText = text;
     document.getElementsByClassName("sentence-details")[0].style.display = "flex";
     document.getElementById("markButton").onclick = function () { markOne(id); };

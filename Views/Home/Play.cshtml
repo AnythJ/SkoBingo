@@ -31,8 +31,8 @@
                 <label asp-for="Player.Name"></label>
                 <input asp-for="Player.Name" />
                 <div class="buttons-row">
-                    <button class="button" type="submit">Finish</button>
-                    <button class="button" type="button" onclick="refresh()">New</button>
+                    <button class="button" type="submit" onclick="userFinish()">Finish</button>
+                    <button class="button" type="button" onclick="newBingo()">New</button>
                     <button class="button" type="button" onclick="closeWinPrompt()">Close</button>
                 </div>
             </form>
