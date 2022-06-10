@@ -3,12 +3,11 @@
 }
 
 window.onload = function () {
-    console.log(localStorage.getItem("selectedBlocks"));
-
     if (localStorage.getItem("selectedBlocks") == null && localStorage.getItem("swapedBlocks") == null) {
         swapBlocks();
     }
     else if (localStorage.getItem("swapedBlocks") != null) {
+        if (localStorage.getItem("showNewButton")) document.getElementById("newBingoButton").style.display = "inline-block";
 
         var blocks = document.getElementsByClassName("sentence-block");
         var blocksTexts = document.getElementsByClassName("sentence-text");
@@ -37,25 +36,28 @@ window.onload = function () {
 function newBingo() {
     localStorage.removeItem("swapedBlocks");
     localStorage.removeItem("selectedBlocks");
+
+    localStorage.setItem("IgnoreScore", JSON.stringify(false));
     closeWinPrompt();
     location.reload();
 }
 
 function userFinish() {
-    localStorage.setItem("UserFinished", JSON.stringify(true));
+    localStorage.setItem("IgnoreScore", JSON.stringify(true));
+    closeWinPrompt();
+    document.getElementById("newBingoButton").style.display = "inline-block";
+    localStorage.setItem("showNewButton", JSON.stringify(true));
 }
 
 
 function swapBlocks() {
     var blocks = document.getElementsByClassName("sentence-block");
     var blocksTexts = document.getElementsByClassName("sentence-text");
-    localStorage.setItem("UserFinished", JSON.stringify(false));
 
     let n = blocks.length;
 
 
     var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
-    console.log(blocks.length + " " + blocksTexts.length + " length");
     
     
     while (n > 0) {
@@ -82,7 +84,6 @@ function swapBlocks() {
 
 function closeWinPrompt() {
     document.getElementById("winPrompt").style.display = "none";
-    localStorage.setItem("IgnoreScore", JSON.stringify(true));
 }
 
 function refresh() {
@@ -95,11 +96,11 @@ function markOne(id) {
     if (window.getComputedStyle(markBlock, null).getPropertyValue("background-color") == "rgb(26, 26, 29)") {
         markBlock.style.backgroundColor = "var(--bg-secondary)";
 
-        if (!JSON.parse(localStorage.getItem("IgnoreScore"))) AddMarkedBlock(id, Math.sqrt(size));
+        AddMarkedBlock(id, Math.sqrt(size));
     }
     else {
         markBlock.style.backgroundColor = "var(--bg-primary)";
-        if (!JSON.parse(localStorage.getItem("IgnoreScore"))) DeleteMarkedBlock(id, Math.sqrt(size));
+        DeleteMarkedBlock(id, Math.sqrt(size));
     }
 
     closeDetails();
@@ -119,7 +120,7 @@ function AddMarkedBlock(id, size) {
     selectedBlocks.push(id);
     localStorage.setItem("selectedBlocks", JSON.stringify(selectedBlocks));
 
-    CheckIfBingo(id, size);
+    if (!JSON.parse(localStorage.getItem("IgnoreScore"))) CheckIfBingo(id, size);
 }
 
 function DeleteMarkedBlock(id) {
