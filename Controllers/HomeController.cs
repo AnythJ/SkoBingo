@@ -78,5 +78,10 @@ namespace SkoBingo.Controllers
                 return View(players);
             }
         }
+
+        public IActionResult About()
+        {
+            return View();
+        }
     }
 }

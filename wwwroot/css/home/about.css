@@ -1,0 +1,45 @@
+﻿.about-text-div {
+    display: flex;
+    width: 100%;
+    text-align: center;
+    margin: 6rem 0 2rem 0;
+    padding: 0 3rem;
+    justify-content: center;
+}
+.main-div {
+    overflow: hidden;
+}
+
+.about-text {
+    color: var(--text-primary);
+    font-size: 1rem;
+    max-width: 60rem;
+}
+
+.info-div {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.author-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.info-div a i {
+    font-size: 4rem;
+    transition: color 0.3s;
+}
+
+.top-navbar {
+    position: fixed;
+}
+
+i.fab:hover {
+    cursor: pointer;
+    color: var(--bg-secondary);
+}

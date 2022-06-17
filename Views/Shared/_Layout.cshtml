@@ -15,14 +15,14 @@
     <div class="side-navbar" id="sideNavbar">
         <a class="menu-closeButton" onclick="hideNavbar()"><i id="closeIcon" class="fa-solid fa-xmark"></i></a>
         <a class="side-navbar-item" asp-controller="home" asp-action="index">HOME</a>
-        <a class="side-navbar-item">ABOUT</a>
+        <a class="side-navbar-item" asp-controller="home" asp-action="about">ABOUT</a>
     </div>
     <nav class="top-navbar">
         <a class="menu-button" id="menuIcon" onclick="showNavbar()">
             <i class="fa-solid fa-bars"></i>
         </a>
         <a class="top-navbar-item" asp-controller="home" asp-action="index">SkoBingo</a>
-        <a class="top-navbar-item">About</a>
+        <a class="top-navbar-item" asp-controller="home" asp-action="about">About</a>
     </nav>
     <main>
         @RenderBody()
