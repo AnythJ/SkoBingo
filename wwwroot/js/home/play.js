@@ -3,22 +3,35 @@
 }
 
 window.onload = function () {
-    if (localStorage.getItem("selectedBlocks") == null && localStorage.getItem("swapedBlocks") == null) {
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let swapedBlocksItemName = "swapedBlocks";
+    swapedBlocksItemName = swapedBlocksItemName.concat(gameLink);
+    let selectedBlocksItemName = "selectedBlocks";
+    selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
+    let showNewButton = "showNewButton";
+    showNewButton = showNewButton.concat(gameLink);
+    
+
+    if (localStorage.getItem(selectedBlocksItemName) == null && localStorage.getItem(swapedBlocksItemName) == null) {
         swapBlocks();
     }
-    else if (localStorage.getItem("swapedBlocks") != null) {
-        if (localStorage.getItem("showNewButton")) document.getElementById("newBingoButton").style.display = "inline-block";
+    else if (localStorage.getItem(swapedBlocksItemName) != null) {
+        if (localStorage.getItem(showNewButton)) document.getElementById("newBingoButton").style.display = "inline-block";
 
         var blocks = document.getElementsByClassName("sentence-block");
         var blocksTexts = document.getElementsByClassName("sentence-text");
-        var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
-        var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
+        var swapedBlocks = JSON.parse(localStorage.getItem(swapedBlocksItemName) || "[]");
+        var selectedBlocks = JSON.parse(localStorage.getItem(selectedBlocksItemName) || "[]");
+        
         for (let i = 0; i < swapedBlocks.length; i++) {
             blocks[i].onclick = function () { openDetails(String(swapedBlocks[i]), blocks[i].id); };
             blocksTexts[i].innerHTML = swapedBlocks[i];
         }
 
-        if (localStorage.getItem("selectedBlocks") != null) {
+        if (localStorage.getItem(selectedBlocksItemName) != null) {
             for (let i = 0; i < blocks.length; i++) {
                 if (selectedBlocks.indexOf(String(i)) >= 0) {
                     var markBlock = document.getElementById(selectedBlocks[selectedBlocks.indexOf(String(i))]);
@@ -28,25 +41,45 @@ window.onload = function () {
         }
     }
 
-    
+
 };
 
 
 
 function newBingo() {
-    localStorage.removeItem("swapedBlocks");
-    localStorage.removeItem("selectedBlocks");
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
 
-    localStorage.setItem("IgnoreScore", JSON.stringify(false));
+    let swapedBlocksItemName = "swapedBlocks";
+    swapedBlocksItemName = swapedBlocksItemName.concat(gameLink);
+    let selectedBlocksItemName = "selectedBlocks";
+    selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
+    let ignoreScore = "IgnoreScore";
+    ignoreScore = ignoreScore.concat(gameLink);
+
+    localStorage.removeItem(swapedBlocksItemName);
+    localStorage.removeItem(selectedBlocksItemName);
+
+    localStorage.setItem(ignoreScore, JSON.stringify(false));
     closeWinPrompt();
     location.reload();
 }
 
 function userFinish() {
-    localStorage.setItem("IgnoreScore", JSON.stringify(true));
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let ignoreScore = "IgnoreScore";
+    ignoreScore = ignoreScore.concat(gameLink);
+    let showNewButton = "showNewButton";
+    showNewButton = showNewButton.concat(gameLink);
+
+    localStorage.setItem(ignoreScore, JSON.stringify(true));
     closeWinPrompt();
     document.getElementById("newBingoButton").style.display = "inline-block";
-    localStorage.setItem("showNewButton", JSON.stringify(true));
+    localStorage.setItem(showNewButton, JSON.stringify(true));
 }
 
 
@@ -54,12 +87,16 @@ function swapBlocks() {
     var blocks = document.getElementsByClassName("sentence-block");
     var blocksTexts = document.getElementsByClassName("sentence-text");
 
-    let n = blocks.length;
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let swapedBlocksItemName = "swapedBlocks";
+    swapedBlocksItemName = swapedBlocksItemName.concat(gameLink);
+
+    var swapedBlocks = JSON.parse(localStorage.getItem(swapedBlocksItemName) || "[]");
 
 
-    var swapedBlocks = JSON.parse(localStorage.getItem("swapedBlocks") || "[]");
-    
-    
     while (n > 0) {
         let r = Math.floor(Math.random() * (blocks.length));
         n--;
@@ -79,7 +116,8 @@ function swapBlocks() {
         blocksTexts[i].innerHTML = swapedBlocks[i];
     }
 
-    localStorage.setItem("swapedBlocks", JSON.stringify(swapedBlocks));
+
+    localStorage.setItem(swapedBlocksItemName, JSON.stringify(swapedBlocks));
 }
 
 function closeWinPrompt() {
@@ -107,35 +145,59 @@ function markOne(id) {
 }
 
 function openDetails(text, id) {
-    console.log("openDetails " + text + " " + id);
     document.getElementById("detailsText").innerText = text;
     document.getElementsByClassName("sentence-details")[0].style.display = "flex";
     document.getElementById("markButton").onclick = function () { markOne(id); };
 }
 
 function AddMarkedBlock(id, size) {
-    var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let selectedBlocksItemName = "selectedBlocks";
+    selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
+    let ignoreScore = "IgnoreScore";
+    ignoreScore = ignoreScore.concat(gameLink);
+
+    var selectedBlocks = JSON.parse(localStorage.getItem(selectedBlocksItemName) || "[]");
 
     var block = id;
     selectedBlocks.push(id);
-    localStorage.setItem("selectedBlocks", JSON.stringify(selectedBlocks));
+    localStorage.setItem(selectedBlocksItemName, JSON.stringify(selectedBlocks));
 
-    if (!JSON.parse(localStorage.getItem("IgnoreScore"))) CheckIfBingo(id, size);
+    if (!JSON.parse(localStorage.getItem(ignoreScore))) CheckIfBingo(id, size);
 }
 
 function DeleteMarkedBlock(id) {
-    var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let selectedBlocksItemName = "selectedBlocks";
+    selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
+
+    var selectedBlocks = JSON.parse(localStorage.getItem(selectedBlocksItemName) || "[]");
 
     var block = id;
     selectedBlocks.splice(selectedBlocks.indexOf(id), 1);
-    localStorage.setItem("selectedBlocks", JSON.stringify(selectedBlocks));
+
+    localStorage.setItem(selectedBlocksItemName, JSON.stringify(selectedBlocks));
 }
 
 function CheckIfBingo(id, size) {
     let startingIndex = id % size;
     let verticalCount = 0;
     let horizontalCount = 0;
-    var selectedBlocks = JSON.parse(localStorage.getItem("selectedBlocks") || "[]");
+
+    var url = window.location.href;
+    var n = url.lastIndexOf('/');
+    var gameLink = url.substring(n + 1);
+
+    let selectedBlocksItemName = "selectedBlocks";
+    selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
+
+    var selectedBlocks = JSON.parse(localStorage.getItem(selectedBlocksItemName) || "[]");
 
     for (var i = startingIndex; i < size * size; i += size) {
         if (selectedBlocks.indexOf(String(i)) >= 0) verticalCount++;
