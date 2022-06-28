@@ -57,11 +57,14 @@ function newBingo() {
     selectedBlocksItemName = selectedBlocksItemName.concat(gameLink);
     let ignoreScore = "IgnoreScore";
     ignoreScore = ignoreScore.concat(gameLink);
+    let showNewButton = "showNewButton";
+    showNewButton = showNewButton.concat(gameLink);
 
     localStorage.removeItem(swapedBlocksItemName);
     localStorage.removeItem(selectedBlocksItemName);
 
     localStorage.setItem(ignoreScore, JSON.stringify(false));
+    localStorage.removeItem(showNewButton);
     closeWinPrompt();
     location.reload();
 }

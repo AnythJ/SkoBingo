@@ -19,7 +19,8 @@
 .info-div {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 5%;
     font-size: 1rem;
     color: var(--text-primary);
 }
@@ -43,3 +44,4 @@ i.fab:hover {
     cursor: pointer;
     color: var(--bg-secondary);
 }
+
