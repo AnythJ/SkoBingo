@@ -89,10 +89,11 @@ function userFinish() {
 function swapBlocks() {
     var blocks = document.getElementsByClassName("sentence-block");
     var blocksTexts = document.getElementsByClassName("sentence-text");
+    let n = blocks.length;
 
     var url = window.location.href;
-    var n = url.lastIndexOf('/');
-    var gameLink = url.substring(n + 1);
+    var x = url.lastIndexOf('/');
+    var gameLink = url.substring(x + 1);
 
     let swapedBlocksItemName = "swapedBlocks";
     swapedBlocksItemName = swapedBlocksItemName.concat(gameLink);
