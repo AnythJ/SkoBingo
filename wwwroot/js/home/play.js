@@ -142,6 +142,7 @@ function markOne(id) {
     }
     else {
         markBlock.style.backgroundColor = "var(--bg-primary)";
+
         DeleteMarkedBlock(id, Math.sqrt(size));
     }
 
@@ -149,9 +150,21 @@ function markOne(id) {
 }
 
 function openDetails(text, id) {
+    var markButton = document.getElementById("markButton");
+    if (window.getComputedStyle(document.getElementById(id)).getPropertyValue("background-color") == "rgb(26, 26, 29)") {
+        markButton.innerText = "Mark";
+        markButton.classList.remove("active");
+    }
+    else {
+        markButton.innerText = "Unmark";
+        markButton.classList.add("active");
+    }
+
     document.getElementById("detailsText").innerText = text;
     document.getElementsByClassName("sentence-details")[0].style.display = "flex";
-    document.getElementById("markButton").onclick = function () { markOne(id); };
+    console.log(window.getComputedStyle(document.getElementById(id)).getPropertyValue("background-color"));
+    
+    markButton.onclick = function () { markOne(id); };
 }
 
 function AddMarkedBlock(id, size) {

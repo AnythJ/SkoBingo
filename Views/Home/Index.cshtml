@@ -2,15 +2,11 @@
     ViewData["Title"] = "SkoBingo";
 }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+@section Styles {
     <link href="~/css/home/home.css" rel="stylesheet" />
-    <title></title>
-</head>
-<body>
+}
+
     <div class="button-section">
         <a class="button button-large" asp-controller="creation" asp-action="index">CREATE</a>
         <a class="button button-large" asp-controller="home" asp-action="multiplayer">PLAY WITH FRIENDS</a>
     </div>
-</body>
-</html>

@@ -16,14 +16,14 @@ namespace SkoBingo.Controllers
         {
             this._bingoRepository = _bingo;
         }
-        public IActionResult Index()
+        public ViewResult Index()
         {
             CreationViewModel viewModel = new();
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(string name, int size)
+        public ViewResult Create(string name, int size)
         {
             CreationViewModel viewModel = new()
             {
@@ -35,7 +35,7 @@ namespace SkoBingo.Controllers
         }
 
         [HttpPost]
-        public IActionResult BingoCreate(CreationViewModel viewModel)
+        public RedirectToActionResult BingoCreate(CreationViewModel viewModel)
         {
             Bingo bingo = new()
             {

@@ -12,3 +12,12 @@
 h1 {
     margin: 4rem 0;
 }
+
+h3.goBackBtn {
+    color: var(--bg-secondary);
+    transition: color 0.3s;
+}
+.goBackBtn:hover {
+    cursor: pointer;
+    color: var(--bg-secondaryy-hover);
+}

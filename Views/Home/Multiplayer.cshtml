@@ -4,21 +4,18 @@
     ViewData["Title"] = "SkoBingo - Multiplayer";
 }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+@section Styles {
     <link href="~/css/creation/index.css" rel="stylesheet" />
     <link href="~/css/home/home.css" rel="stylesheet" />
-    <title></title>
-</head>
-<body>
+}
+
     <div class="main-div">
         <form asp-controller="home" asp-action="multiplayer" method="post">
             <input asp-for="UniqueLink" required onkeyup="this.onchange()" />
             <button type="submit" onclick="clearSelectedButtons()" class="button button-small">Play</button>
         </form>
     </div>
-</body>
-</html>
 
-
-<script src="~/js/home/multiplayer.js"></script>
+    @section Scripts {
+    <script src="~/js/home/multiplayer.js"></script>
+}

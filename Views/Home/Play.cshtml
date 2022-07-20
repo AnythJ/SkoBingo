@@ -4,9 +4,7 @@
     ViewData["Title"] = "SkoBingo Play - " + Model.Bingo.Name;
 }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    @section Styles {
+@section Styles {
         <style type="text/css">
         @{
             var flexSize = (100 / Model.Bingo.Size + "%").ToString();
@@ -16,13 +14,11 @@
            height: @flexSize;
         }
         </style>
-
-    }
     <link href="~/css/home/play.css" rel="stylesheet" />
     <link href="~/css/home/home.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="main-div">
+    }
+
+<div class="main-div">
         <div id="winPrompt">
             <span class="bingoWinText">Bingo!!!</span>
             <form asp-action="Win" asp-controller="Home" method="post">
@@ -68,13 +64,7 @@
             <button id="newBingoButton" class="button button-small" onclick="newBingo()" type="button">New</button>
         </div>
     </div>
-</body>
-</html>
 
-
-
-<script>
-</script>
-
-
-<script src="~/js/home/play.js"></script>
+    @section Scripts {
+        <script src="~/js/home/play.js"></script>
+    }

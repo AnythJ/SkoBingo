@@ -16,7 +16,7 @@ namespace SkoBingo.Controllers
         {
             this._bingoRepository = _bingo;
         }
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
@@ -36,19 +36,19 @@ namespace SkoBingo.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Multiplayer()
+        public ViewResult Multiplayer()
         {
             return View(new Bingo());
         }
 
         [HttpPost]
-        public IActionResult MultiPlayer(string uniqueLink)
+        public RedirectToActionResult MultiPlayer(string uniqueLink)
         {
             return RedirectToAction("Play", new { uniqueLink = uniqueLink });
         }
 
         [HttpPost]
-        public IActionResult Win(HomeViewModel viewModel)
+        public RedirectToActionResult Win(HomeViewModel viewModel)
         {
             viewModel.Player.ScoreboardId = viewModel.Bingo.Scoreboard.ScoreboardId;
             viewModel.Player.WinDate = DateTime.Now;
@@ -79,7 +79,7 @@ namespace SkoBingo.Controllers
             }
         }
 
-        public IActionResult About()
+        public ViewResult About()
         {
             return View();
         }
