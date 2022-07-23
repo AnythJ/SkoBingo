@@ -13,9 +13,6 @@ input.onchange = function formatLink() {
         return;
     }
 
-
-
-
     var inputValue = input.value;
     if (inputValue.length > 15) {
         inputValue = inputValue.substring(inputValue.lastIndexOf("/") + 1);

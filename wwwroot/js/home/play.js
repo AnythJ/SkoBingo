@@ -45,7 +45,9 @@ window.onload = function () {
 };
 
 
-
+/**
+ * Removes all localStorage items related to exact bingo and reloads page.
+ */
 function newBingo() {
     var url = window.location.href;
     var n = url.lastIndexOf('/');
@@ -69,6 +71,9 @@ function newBingo() {
     location.reload();
 }
 
+/**
+ * Sets IgnoreScore and showNewButton items in localStorage to true, closes win prompt.
+ */
 function userFinish() {
     var url = window.location.href;
     var n = url.lastIndexOf('/');
@@ -85,7 +90,9 @@ function userFinish() {
     localStorage.setItem(showNewButton, JSON.stringify(true));
 }
 
-
+/**
+ * Randomly swap blocks with text and save it in localStorage as swapedBlocks for exact bingo.
+ */
 function swapBlocks() {
     var blocks = document.getElementsByClassName("sentence-block");
     var blocksTexts = document.getElementsByClassName("sentence-text");
@@ -132,6 +139,10 @@ function refresh() {
     window.location.reload();
 }
 
+/**
+ * Marks or unmarks block with passed id, by changing background-color and adds it to localStorage item selectedBlocks with AddMarkedBlock function.
+ * @param {number} id
+ */
 function markOne(id) {
     var markBlock = document.getElementById(id);
     var size = document.getElementsByClassName("sentence-block").length;
@@ -149,6 +160,11 @@ function markOne(id) {
     closeDetails();
 }
 
+/**
+ * Opens details popup with full sentence and button to mark/unmark.
+ * @param {string} text
+ * @param {number} id
+ */
 function openDetails(text, id) {
     var markButton = document.getElementById("markButton");
     if (window.getComputedStyle(document.getElementById(id)).getPropertyValue("background-color") == "rgb(26, 26, 29)") {
@@ -167,6 +183,11 @@ function openDetails(text, id) {
     markButton.onclick = function () { markOne(id); };
 }
 
+/**
+ * Saves selected block in localStorage item selectedBlocks for exact bingo.
+ * @param {number} id
+ * @param {number} size
+ */
 function AddMarkedBlock(id, size) {
     var url = window.location.href;
     var n = url.lastIndexOf('/');
@@ -186,6 +207,10 @@ function AddMarkedBlock(id, size) {
     if (!JSON.parse(localStorage.getItem(ignoreScore))) CheckIfBingo(id, size);
 }
 
+/**
+ * Removes selected block from localStorage item selectedBlocks for exact bingo.
+ * @param {number} id
+ */
 function DeleteMarkedBlock(id) {
     var url = window.location.href;
     var n = url.lastIndexOf('/');
@@ -202,6 +227,11 @@ function DeleteMarkedBlock(id) {
     localStorage.setItem(selectedBlocksItemName, JSON.stringify(selectedBlocks));
 }
 
+/**
+ * Checks if win requirements were met by comparing amount of selected blocks to size of the bingo. If requirements were met, shows winPrompt.
+ * @param {number} id
+ * @param {number} size
+ */
 function CheckIfBingo(id, size) {
     let startingIndex = id % size;
     let verticalCount = 0;
