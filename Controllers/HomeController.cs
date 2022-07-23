@@ -22,9 +22,9 @@ namespace SkoBingo.Controllers
         }
 
         [Route("Play/{uniqueLink}")]
-        public IActionResult Play(string uniqueLink)
+        public async Task<IActionResult> Play(string uniqueLink)
         {
-            Bingo bingo = _bingoRepository.GetBingo(uniqueLink);
+            Bingo bingo = await _bingoRepository.GetBingo(uniqueLink);
             if (bingo == null) return StatusCode(500);
 
             HomeViewModel viewModel = new()
@@ -48,19 +48,19 @@ namespace SkoBingo.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Win(HomeViewModel viewModel)
+        public async Task<RedirectToActionResult> Win(HomeViewModel viewModel)
         {
             viewModel.Player.ScoreboardId = viewModel.Bingo.Scoreboard.ScoreboardId;
             viewModel.Player.WinDate = DateTime.Now;
 
-            _bingoRepository.AddPlayer(viewModel.Player);
+            await _bingoRepository.AddPlayer(viewModel.Player);
             TempData["scoreboardId"] = viewModel.Player.ScoreboardId;
 
             return RedirectToAction("Scoreboard", "Home", new { uniqueLink = viewModel.Bingo.UniqueLink });
         }
 
         [Route("Scoreboard/{uniqueLink}")]
-        public IActionResult Scoreboard(string uniqueLink)
+        public async Task<IActionResult> Scoreboard(string uniqueLink)
         {
             
             if (TempData["scoreboardId"] != null)
@@ -71,7 +71,7 @@ namespace SkoBingo.Controllers
             }
             else
             {
-                Bingo bingo = _bingoRepository.GetBingo(uniqueLink);
+                Bingo bingo = await _bingoRepository.GetBingo(uniqueLink);
                 if (bingo == null) return StatusCode(500);
 
                 IList<Player> players = _bingoRepository.GetPlayers(bingo.Scoreboard.ScoreboardId).ToList();

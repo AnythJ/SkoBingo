@@ -35,21 +35,33 @@ namespace SkoBingo.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult BingoCreate(CreationViewModel viewModel)
+        public async Task<IActionResult> BingoCreate(CreationViewModel viewModel)
         {
-            Bingo bingo = new()
+            foreach(var item in ModelState)
             {
-                Name = viewModel.Name,
-                Size = viewModel.Size,
-                Sentence = viewModel.Sentences,
-                Scoreboard = new Scoreboard()
-            };
-            
-            bingo = _bingoRepository.Add(bingo);
-            
-            return RedirectToAction("Play", "Home", new { uniqueLink = bingo.UniqueLink });
-        }
+                var x = item.Value;
+                var y = item.Key;
+            }
 
+            if(!ModelState.IsValid)
+            {
+                return View("Create", viewModel);
+            }
+            else
+            {
+                Bingo bingo = new()
+                {
+                    Name = viewModel.Name,
+                    Size = viewModel.Size,
+                    Sentences = viewModel.Sentences,
+                    Scoreboard = new Scoreboard()
+                };
+
+                bingo = await _bingoRepository.AddBingo(bingo);
+
+                return RedirectToAction("Play", "Home", new { uniqueLink = bingo.UniqueLink });
+            }
+        }
 
     }
 }

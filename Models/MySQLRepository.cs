@@ -18,65 +18,61 @@ namespace SkoBingo.Models
         }
 
 
-        public Bingo Add(Bingo bingo)
+        public async Task<Bingo> AddBingo(Bingo bingo)
         {
             string uniqueLink = LinkGenerator.GetUniqueLink(10);
-            
-            while(ContainsLink(uniqueLink))
+
+            while (await ContainsLink(uniqueLink))
             {
                 uniqueLink = LinkGenerator.GetUniqueLink(10);
             }
 
             
             bingo.UniqueLink = uniqueLink;
-            context.Add(bingo);
-            context.SaveChanges();
+            await context.AddAsync(bingo);
+            await context.SaveChangesAsync();
 
             return bingo;
         }
 
-        public bool ContainsLink(string uniqueLink)
+        /// <summary>
+        /// Determines whether database contains bingo with this 
+        /// </summary>
+        /// <param name="uniqueLink"></param>
+        public async Task<bool> ContainsLink(string uniqueLink)
         {
-            return context.Bingos.Any(e => e.UniqueLink == uniqueLink);
+            return await context.Bingos.AnyAsync(e => e.UniqueLink == uniqueLink);
         }
 
-        public Bingo GetBingo(string uniqueLink)
+        public async Task<Bingo> GetBingo(string uniqueLink)
         {
-            Bingo bingo = context.Bingos.FirstOrDefault(e => e.UniqueLink == uniqueLink);
+            Bingo bingo = await context.Bingos.FirstOrDefaultAsync(e => e.UniqueLink == uniqueLink);
             if (bingo == null) return null;
 
-            bingo.Sentence = context.Sentences.Where(e => e.BingoId == bingo.BingoId).ToList();
+            bingo.Sentences = await context.Sentences.Where(e => e.BingoId == bingo.BingoId).ToListAsync();
 
-            bingo.Scoreboard = context.Scoreboards.FirstOrDefault(e => e.BingoId == bingo.BingoId);
-
+            bingo.Scoreboard = await context.Scoreboards.FirstOrDefaultAsync(e => e.BingoId == bingo.BingoId);
+            
             return bingo;
         }
 
-        public List<string> GetLinks()
+        public async Task<Player> AddPlayer(Player player)
         {
-            List<string> test = new();
-            test.Add("testLink");
-
-            return test;
-        }
-
-        public ICollection<Sentence> GetSentences()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public Player AddPlayer(Player player)
-        {
-            context.Players.Add(player);
-            context.SaveChanges();
+            await context.Players.AddAsync(player);
+            await context.SaveChangesAsync();
 
             return player;
         }
 
+        /// <summary>
+        /// Gets all players from a bingo related to the <paramref name="scoreboardId"/>
+        /// </summary>
+        /// <param name="scoreboardId"></param>
+        /// <returns><typeparamref name="IColection"></typeparamref> of players</returns>
         public ICollection<Player> GetPlayers(int scoreboardId)
         {
             return context.Players.Where(e => e.ScoreboardId == scoreboardId).ToList();
         }
+
     }
 }
