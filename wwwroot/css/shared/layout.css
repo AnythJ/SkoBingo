@@ -152,3 +152,6 @@ main {
     }
 
 
+.validationSummary {
+    color: var(--bg-secondary);
+}

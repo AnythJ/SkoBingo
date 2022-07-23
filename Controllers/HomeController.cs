@@ -38,13 +38,17 @@ namespace SkoBingo.Controllers
 
         public ViewResult Multiplayer()
         {
-            return View(new Bingo());
+            return View(new MultiplayerViewModel());
         }
 
         [HttpPost]
-        public RedirectToActionResult MultiPlayer(string uniqueLink)
+        public IActionResult MultiPlayer(MultiplayerViewModel viewModel)
         {
-            return RedirectToAction("Play", new { uniqueLink = uniqueLink });
+            if(!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            else return RedirectToAction("Play", new { uniqueLink = viewModel.UniqueLink });
         }
 
         [HttpPost]

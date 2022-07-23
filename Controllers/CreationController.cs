@@ -18,31 +18,32 @@ namespace SkoBingo.Controllers
         }
         public ViewResult Index()
         {
-            CreationViewModel viewModel = new();
+            InitialCreationViewModel viewModel = new();
             return View(viewModel);
         }
 
         [HttpPost]
-        public ViewResult Create(string name, int size)
+        public ViewResult Create(InitialCreationViewModel viewModel)
         {
-            CreationViewModel viewModel = new()
+            if(!ModelState.IsValid)
             {
-                Name = name,
-                Size = size
-            };
+                return View("Index", viewModel);
+            }
+            else
+            {
+                CreationViewModel creationViewModel = new()
+                {
+                    Name = viewModel.Name,
+                    Size = viewModel.Size
+                };
 
-            return View(viewModel);
+                return View(creationViewModel);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> BingoCreate(CreationViewModel viewModel)
         {
-            foreach(var item in ModelState)
-            {
-                var x = item.Value;
-                var y = item.Key;
-            }
-
             if(!ModelState.IsValid)
             {
                 return View("Create", viewModel);

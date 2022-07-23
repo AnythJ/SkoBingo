@@ -1,5 +1,5 @@
 ﻿@using SkoBingo.ViewModels
-@model CreationViewModel
+@model InitialCreationViewModel
 @{
     ViewData["Title"] = "SkoBingo - Creation";
 }
@@ -24,6 +24,8 @@
                 </button>
             </div>
             <button class="button button-small">Add sentences</button>
+            
+            <div asp-validation-summary="All" class="validation-span validationSummary"></div>
         </form>
     </div>
 
