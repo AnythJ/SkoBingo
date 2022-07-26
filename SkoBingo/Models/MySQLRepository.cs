@@ -18,11 +18,11 @@ namespace SkoBingo.Models
         }
 
 
-        public async Task<Bingo> AddBingo(Bingo bingo)
+        public async Task<Bingo> AddBingoAsync(Bingo bingo)
         {
             string uniqueLink = LinkGenerator.GetUniqueLink(10);
 
-            while (await ContainsLink(uniqueLink))
+            while (await ContainsLinkAsync(uniqueLink))
             {
                 uniqueLink = LinkGenerator.GetUniqueLink(10);
             }
@@ -39,12 +39,12 @@ namespace SkoBingo.Models
         /// Determines whether database contains bingo with this 
         /// </summary>
         /// <param name="uniqueLink"></param>
-        public async Task<bool> ContainsLink(string uniqueLink)
+        public async Task<bool> ContainsLinkAsync(string uniqueLink)
         {
             return await context.Bingos.AnyAsync(e => e.UniqueLink == uniqueLink);
         }
 
-        public async Task<Bingo> GetBingo(string uniqueLink)
+        public async Task<Bingo> GetBingoAsync(string uniqueLink)
         {
             Bingo bingo = await context.Bingos.FirstOrDefaultAsync(e => e.UniqueLink == uniqueLink);
             if (bingo == null) return null;
@@ -56,7 +56,7 @@ namespace SkoBingo.Models
             return bingo;
         }
 
-        public async Task<Player> AddPlayer(Player player)
+        public async Task<Player> AddPlayerAsync(Player player)
         {
             await context.Players.AddAsync(player);
             await context.SaveChangesAsync();

@@ -58,7 +58,7 @@ namespace SkoBingo.Controllers
                     Scoreboard = new Scoreboard()
                 };
 
-                bingo = await _bingoRepository.AddBingo(bingo);
+                bingo = await _bingoRepository.AddBingoAsync(bingo);
 
                 return RedirectToAction("Play", "Home", new { uniqueLink = bingo.UniqueLink });
             }

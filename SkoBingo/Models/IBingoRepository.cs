@@ -7,10 +7,10 @@ namespace SkoBingo.Models
 {
     public interface IBingoRepository
     {
-        Task<Bingo> AddBingo(Bingo bingo);
-        Task<Bingo> GetBingo(string uniqueLink);
-        Task<bool> ContainsLink(string uniqueLink);
-        Task<Player> AddPlayer(Player player);
+        Task<Bingo> AddBingoAsync(Bingo bingo);
+        Task<Bingo> GetBingoAsync(string uniqueLink);
+        Task<bool> ContainsLinkAsync(string uniqueLink);
+        Task<Player> AddPlayerAsync(Player player);
         ICollection<Player> GetPlayers(int scoreboardId);
     }
 }
