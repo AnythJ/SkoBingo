@@ -45,3 +45,8 @@ i.fab:hover {
     color: var(--bg-secondary);
 }
 
+.info-div a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
