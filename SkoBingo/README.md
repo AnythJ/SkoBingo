@@ -19,7 +19,7 @@ ASP.NET Core, MySQL Database, Entity Framework Core, JavaScript, Bootstrap
 
 ### Short Presentation
 <a name="shortPresentation"/>
-<img src="/wwwroot/gif/skobingogif.gif?raw=true" width="800px">
+<img src="/SkoBingo/wwwroot/gif/skobingogif.gif?raw=true" width="800px">
 
 ### Setup
 <a name="setup"/>
